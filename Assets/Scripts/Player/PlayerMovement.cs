@@ -110,15 +110,24 @@ public class PlayerMovement : MonoBehaviour
             _shadowAnimator.SetFloat("XVelocity", h);
         }
 
+<<<<<<< HEAD
+=======
+            _playerAnimator.SetFloat("XVelocity", h);
+            Caster.transform.position = transform.position;
+        }
+>>>>>>> origin/master
 
     }
 
     private void MoveBoth(Vector2 movement)
     {
         transform.localScale = (movement.x < 0) ? new Vector3(-0.5f, 0.5f) : new Vector3(0.5f, 0.5f);
+        Shadow.transform.localScale = (movement.x < 0) ? new Vector3(-0.5f, 0.5f) : new Vector3(0.5f, 0.5f);
 
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         _rigidbody.MovePosition(position + movement);
+
+        //Shadow.transform.position = transform.position + new Vector3(-0.1f, -0.02f, 0);
     }
 
     private void MoveShadow(Vector2 movement)
