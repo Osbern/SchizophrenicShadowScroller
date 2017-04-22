@@ -4,35 +4,79 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject Shadow;
     public float Speed;
     public GameObject Caster;
+    private bool _isShadowControlled;
 
-    private Vector2 _movement;
     private Rigidbody2D _rigidbody;
-    private Animator _animator;
+    private Animator _playerAnimator;
+    private Animator _shadowAnimator;
+
+    //Timer
+    private const float INPUT_DELAY = 0.5f;
+    private float _inputTimer;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        _playerAnimator = GetComponent<Animator>();
+        _shadowAnimator = Shadow.GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
+        _inputTimer += Time.deltaTime;
 
-        Move(h);
-        Caster.transform.position = transform.position;
+        if (Input.GetButton("Jump")
+            && _inputTimer >= INPUT_DELAY)
+        {
+            _isShadowControlled = !_isShadowControlled;
+            Shadow.transform.localScale = new Vector3(1f, 1f);
+            transform.localScale = new Vector3(0.5f, 0.5f);
+
+            if (!_isShadowControlled)
+            {
+                transform.position = Shadow.transform.position;
+                Shadow.transform.localPosition = new Vector3(-0.24f, -0.17f, 0);
+            }
+
+            _inputTimer = 0;
+        }
+
+        float h = Input.GetAxisRaw("Horizontal");
+        Vector2 movement = new Vector2(h, 0);
+        movement = movement.normalized * Speed * Time.deltaTime;
+
+        if (_isShadowControlled)
+        {
+            if (h != 0)
+                MoveShadow(movement);
+        }
+        else
+        {
+            if (h != 0)
+                MoveBoth(movement);
+
+            _playerAnimator.SetFloat("XVelocity", h);
+            //Caster.transform.position = transform.position;
+        }
+
+        _shadowAnimator.SetFloat("XVelocity", h);
     }
 
-    private void Move(float h)
+    private void MoveBoth(Vector2 movement)
     {
-        _movement.Set(h, 0);
-        _movement = _movement.normalized * Speed * Time.deltaTime;
+        transform.localScale = (movement.x < 0) ? new Vector3(-0.5f, 0.5f) : new Vector3(0.5f, 0.5f);
 
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
-        _rigidbody.MovePosition(position + _movement);
+        _rigidbody.MovePosition(position + movement);
+    }
 
-        _animator.SetFloat("XVelocity", h);
+    private void MoveShadow(Vector2 movement)
+    {
+        Shadow.transform.localScale = (movement.x < 0) ? new Vector3(-1f, 1f) : new Vector3(1f, 1f);
+
+        Shadow.transform.position += new Vector3(movement.x, movement.y);
     }
 }
