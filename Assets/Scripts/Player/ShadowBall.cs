@@ -1,40 +1,65 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class ShadowBall : MonoBehaviour
-//{
+public class ShadowBall : Movable
+{
+    public float Size = 1.5f;
+    private const float DudeSize = 1.5f;
+    void Start()
+    {
+        Init();
 
-//    public GameObject Shadow;
-//    private Vector3 _offset;
-//    // Use this for initialization
-//    void Start()
-//    {
-//        _offset = transform.position - Shadow.transform.position;
-//    }
+        GetComponent<ParticleSystem>().startSize = Size;
+        gameObject.GetComponent<ParticleSystem>().Stop();
+    }
 
-//    // Update is called once per frame
-//    void Update()
-//    {
 
-//    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Enabled)
+        {
 
-//    public void Active(bool active)
-//    {
+            Move();
+        }
+    }
 
-//    }
+    protected override Vector2 Move()
+    {
+        var movement = base.Move();
 
-//    void OnCollisionEnter2D(Collision2D coll)
-//    {
-//        //var shadowBallTouchGround = (LayerMask.LayerToName(coll.gameObject.layer) == "Floor");
+        //move
+        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        _rigidbody.MovePosition(position + movement);
 
-//        //if (shadowBallTouchGround)
-//        //{
-//        GetComponentInParent<PlayerMovement>().UnactiveBall();
-//        Shadow.SetActive(true);
-//        Shadow.transform.position = transform.position + Vector3.up * 0.45f;
+        return movement;
+    }
 
-//        //}
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        //var shadowBallTouchGround = (LayerMask.LayerToName(coll.gameObject.layer) == "Floor");
 
-//    }
-//}
+        //if (shadowBallTouchGround)
+        //{
+        //GetComponentInParent<PlayerMovement>().UnactiveBall();
+        //Shadow.SetActive(true);
+        //Shadow.transform.position = transform.position + Vector3.up * 0.45f;
+        //if (shadowBallTouchGround)
+        //{
+
+        if (Enabled)
+        {
+           
+            gameObject.GetComponent<ParticleSystem>().Stop();
+            Parent.transform.position = transform.position + Vector3.up * DudeSize;
+            Parent.GetComponent<Movable>().Activate(this);
+            Parent.GetComponent<Shadow>().Apear();
+        }
+
+
+        //}
+
+        //}
+    }
+}
