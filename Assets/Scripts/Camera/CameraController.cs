@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
 
         Vector3 movement = new Vector3(h, 0);
-        movement = movement.normalized * 5 * Time.deltaTime;
+        movement = movement.normalized * 10 * Time.deltaTime;
         transform.position += movement;
     }
 }
