@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private const float MAXSHADOWSIZE = 0.5f;
     private float _inputTimer;
 
+    private bool _goToShadow = false;
+
     public bool IsActiveShadowBall, IsUnActiveShadowBall = false;
 
     private void Awake()
@@ -38,57 +40,77 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputTimer += Time.deltaTime;
 
-        if (Input.GetButton("Jump")
-            && _inputTimer >= INPUT_DELAY)
+        if (_goToShadow)
         {
-            _isShadowControlled = !_isShadowControlled;
-            Shadow.transform.localScale = new Vector3(1f, 1f);
-            transform.localScale = new Vector3(0.5f, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, Shadow.transform.position, 0.3f);
 
-            if (!_isShadowControlled)
+            if (Vector3.Distance(transform.position, Shadow.transform.position) < 0.1f)
             {
-                transform.position = Shadow.transform.position;
+                Shadow.transform.parent = transform;
                 Shadow.transform.localPosition = new Vector3(-0.24f, -0.17f, 0);
+                _goToShadow = false;
+                //GetComponent<BoxCollider2D>().enabled = true;
+                //GetComponent<CircleCollider2D>().enabled = true;
+                //GetComponent<Rigidbody2D>().gravityScale = 1;
             }
-
-            _inputTimer = 0;
-        }
-
-        float h = Input.GetAxisRaw("Horizontal");
-        var v = Input.GetAxis("Vertical");
-
-        //ball or shadow
-        var activeShadowBall = v > 0;
-        if (_isShadowControlled && !_shadowBall.activeInHierarchy && activeShadowBall)
-        {
-            _shadowBall.transform.position = Shadow.transform.position;
-            if (!IsActiveShadowBall && !IsUnActiveShadowBall)
-            {
-                InvokeRepeating("ActiveShadowBall", 0, DISAPEARRATE);
-            }
-
-        }
-
-        Vector2 movement = new Vector2(h, _shadowBall.activeInHierarchy ? v : 0);
-        movement = movement.normalized * Speed * Time.deltaTime * (_shadowBall.activeInHierarchy ? 2 : 1);
-
-        if (_isShadowControlled)
-        {
-            _shadowBall.SetActive(!Shadow.activeInHierarchy);
-
-            if (h != 0 || v != 0)
-                MoveShadow(movement);
         }
         else
         {
-            if (h != 0)
-                MoveBoth(movement);
+            if (Input.GetButton("Jump")
+                     && _inputTimer >= INPUT_DELAY)
+            {
+                _isShadowControlled = !_isShadowControlled;
+                Shadow.transform.localScale = new Vector3(1f, 1f);
+                transform.localScale = new Vector3(0.5f, 0.5f);
 
-            _playerAnimator.SetFloat("XVelocity", h);
-            //Caster.transform.position = transform.position;
+                if (!_isShadowControlled)
+                {
+                    Shadow.transform.parent = null;
+                    //GetComponent<BoxCollider2D>().enabled = false;
+                    //GetComponent<CircleCollider2D>().enabled = false;
+                    //GetComponent<Rigidbody2D>().gravityScale = 0;
+                    _goToShadow = true;
+                }
+
+                _inputTimer = 0;
+            }
+
+            float h = Input.GetAxisRaw("Horizontal");
+            var v = Input.GetAxis("Vertical");
+
+            //ball or shadow
+            var activeShadowBall = v > 0;
+            if (_isShadowControlled && !_shadowBall.activeInHierarchy && activeShadowBall)
+            {
+                _shadowBall.transform.position = Shadow.transform.position;
+                ActiveBall();
+
+            }
+
+            Vector2 movement = new Vector2(h, _shadowBall.activeInHierarchy ? v : 0);
+            movement = movement.normalized * Speed * Time.deltaTime * (_shadowBall.activeInHierarchy ? 2 : 1);
+
+            if (_isShadowControlled)
+            {
+                _shadowBall.SetActive(!Shadow.activeInHierarchy);
+                //Shadow.GetComponent<Collider2D>().enabled = true;
+                if (h != 0 || v != 0)
+                    MoveShadow(movement);
+            }
+            else
+            {
+                //Shadow.GetComponent<Collider2D>().enabled = false;
+                if (h != 0)
+                    MoveBoth(movement);
+
+                _playerAnimator.SetFloat("XVelocity", h);
+                //Caster.transform.position = transform.position;
+            }
+
+            _shadowAnimator.SetFloat("XVelocity", h);
         }
 
-        _shadowAnimator.SetFloat("XVelocity", h);
+
     }
 
     private void MoveBoth(Vector2 movement)
@@ -136,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
         {
             IsActiveShadowBall = false;
             Shadow.SetActive(false);
+
             CancelInvoke("ActiveShadowBall");
         }
 
@@ -163,12 +186,23 @@ public class PlayerMovement : MonoBehaviour
             _shadowBall.SetActive(false);
             CancelInvoke("UnActiveShadowBall");
         }
+    }
 
+    public void ActiveBall()
+    {
+        if (!IsActiveShadowBall && !IsUnActiveShadowBall)
+            InvokeRepeating("ActiveShadowBall", 0, DISAPEARRATE);
     }
 
     public void UnactiveBall()
     {
         if (!IsActiveShadowBall && !IsUnActiveShadowBall)
             InvokeRepeating("UnActiveShadowBall", 0, DISAPEARRATE);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        _shadowBall.transform.position = Shadow.transform.position;
+        ActiveBall();
     }
 }
