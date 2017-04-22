@@ -5,8 +5,15 @@ using UnityEngine;
 public class LightController : MonoBehaviour
 {
     public GameObject Light;
+    public Animator LightAnimator;
 
     private bool _switch;
+
+    private void Awake()
+    {
+        if (LightAnimator != null)
+            LightAnimator.enabled = false;
+    }
 
     private void Update()
     {
