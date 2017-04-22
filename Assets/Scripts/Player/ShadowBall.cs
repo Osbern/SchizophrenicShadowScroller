@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ShadowBall : MonoBehaviour
 {
-
+    public PlayerMovement PlayerMovement;
     public GameObject Shadow;
+
     private Vector3 _offset;
     // Use this for initialization
     void Start()
@@ -30,7 +31,7 @@ public class ShadowBall : MonoBehaviour
 
         //if (shadowBallTouchGround)
         //{
-        GetComponentInParent<PlayerMovement>().UnactiveBall();
+        PlayerMovement.UnactiveBall();
         Shadow.SetActive(true);
         Shadow.transform.position = transform.position + Vector3.up * 0.45f;
 
