@@ -17,9 +17,28 @@ Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Ma
 Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.034 seconds
+- Completed reload, in  0.017 seconds
 Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.dll (this message is harmless)
 desktop: 1280x1024 60Hz; virtual: 2560x1024 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.782081 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.851271 ms
+
+Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 754.
+Total: 0.349952 ms (FindLiveObjects: 0.078080 ms CreateObjectMapping: 0.012800 ms MarkObjects: 0.238848 ms  DeleteObjects: 0.019968 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.515585 ms
+
+Unloading 34 unused Assets to reduce memory usage. Loaded Objects now: 705.
+Total: 0.486912 ms (FindLiveObjects: 0.016640 ms CreateObjectMapping: 0.017664 ms MarkObjects: 0.187136 ms  DeleteObjects: 0.265216 ms)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 30e8 -> priority: 1 
+  Thread -> id: abc -> priority: 1 
+  Thread -> id: 236c -> priority: 1 
+  Thread -> id: f90 -> priority: 1 
