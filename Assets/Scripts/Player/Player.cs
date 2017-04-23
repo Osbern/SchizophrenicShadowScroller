@@ -43,8 +43,6 @@ public class Player : Movable
             }
 
         }
-
-
     }
 
     protected override Vector2 Move()

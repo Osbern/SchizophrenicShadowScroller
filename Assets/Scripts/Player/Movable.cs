@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movable : MonoBehaviour
 {
+    public AudioClip FootStepClip;
     public GameObject Child;
     public GameObject Parent;
 
@@ -21,6 +22,11 @@ public class Movable : MonoBehaviour
     void Start()
     {
 
+    }
+
+    public virtual void FootStep()
+    {
+        AudioSource.PlayClipAtPoint(FootStepClip, transform.position);
     }
 
     protected void Init()

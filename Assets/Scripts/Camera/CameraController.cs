@@ -11,12 +11,12 @@ public class CameraController : MonoBehaviour
             return;
 
         Vector3 movement = new Vector3(h, 0);
-        movement = movement.normalized * 20 * Time.deltaTime;
+        movement = movement.normalized * 10 * Time.deltaTime;
 
         float newX = transform.position.x + movement.x;
 
-        //if (newX > -19f
-        //    && newX < 98f)
+        if (newX > -19f
+            && newX < 98f)
             transform.position += movement;
     }
 }
