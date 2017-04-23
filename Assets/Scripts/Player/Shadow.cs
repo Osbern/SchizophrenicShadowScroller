@@ -13,6 +13,7 @@ public class Shadow : Movable
     {
         Init();
         Child.GetComponent<ParticleSystem>().startSize = 0;
+        SetUnderLight(true);
     }
 
     public override void FootStep()
@@ -97,6 +98,22 @@ public class Shadow : Movable
 
     }
 
+    public void SetUnderLight(bool isUnderLight)
+    {
+        foreach (var particle in GetComponentsInChildren<ParticleSystem>())
+        {
+            if (isUnderLight)
+            {
+                particle.Play();
+            }
+            else
+            {
+                particle.Stop();
+            }
+
+        }
+    }
+
     void OnCollisionStay2D(Collision2D coll)
     {
 
@@ -132,6 +149,7 @@ public class Shadow : Movable
         if (transform.localScale.x <= 0)
         {
             _isDisapearing = false;
+            SetUnderLight(false);
             CancelInvoke("DisapearMe");
         }
     }
@@ -156,6 +174,7 @@ public class Shadow : Movable
         {
             Enabled = true;
             _apear = false;
+
             CancelInvoke("ApearMe");
         }
     }
