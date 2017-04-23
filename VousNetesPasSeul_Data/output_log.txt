@@ -1,32 +1,31 @@
 Initialize engine version: 5.6.0f3 (497a0f351392)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 770 (ID=0x1184)
-    Vendor:   NVIDIA
-    VRAM:     2017 MB
-    Driver:   22.21.13.8165
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 520 (ID=0x1916)
+    Vendor:   Intel
+    VRAM:     2090 MB
+    Driver:   20.19.15.4483
 Begin MonoManager ReloadAssembly
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
-Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.020 seconds
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: E:\Ludum\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 3200x1080 at -1280,0
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.207 seconds
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: d:\Profiles\tdestouc\Workspace\SchizophrenicShadowScroller\VousNetesPasSeul_Data\Managed\System.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.642303 ms
-Setting up 4 worker threads for Enlighten.
-  Thread -> id: 2134 -> priority: 1 
-  Thread -> id: 2320 -> priority: 1 
-  Thread -> id: 1fbc -> priority: 1 
-  Thread -> id: 14f8 -> priority: 1 
+UnloadTime: 3.004715 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 2e68 -> priority: 1 
+  Thread -> id: 357c -> priority: 1 
