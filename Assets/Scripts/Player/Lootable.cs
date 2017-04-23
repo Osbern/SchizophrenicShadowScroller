@@ -5,11 +5,17 @@ using UnityEngine;
 public class Lootable : MonoBehaviour
 {
     public GameObject Destination;
+    public AudioClip LootClip;
 
     // Use this for initialization
     void Start()
     {
 
+    }
+
+    public void LootAudio()
+    {
+        AudioSource.PlayClipAtPoint(LootClip, transform.position);
     }
 
     // Update is called once per frame
@@ -36,6 +42,7 @@ public class Lootable : MonoBehaviour
             Destroy(GetComponent<Rigidbody2D>());
 
             GetComponent<Collider2D>().enabled = false;
+            LootAudio();
         }
 
 

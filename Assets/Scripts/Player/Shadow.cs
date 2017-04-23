@@ -15,6 +15,11 @@ public class Shadow : Movable
         Child.GetComponent<ParticleSystem>().startSize = 0;
     }
 
+    public override void FootStep()
+    {
+        // AudioSource.PlayClipAtPoint(FootStepClip, transform.position);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -97,7 +102,6 @@ public class Shadow : Movable
 
         if (Enabled)
         {
-            Debug.Log((LayerMask.LayerToName(coll.gameObject.layer)));
             if ((LayerMask.LayerToName(coll.gameObject.layer) == "Ground"))
             {
                 _collideTimer = 0;
