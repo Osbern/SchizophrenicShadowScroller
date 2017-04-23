@@ -17,7 +17,7 @@ public class BreakableChainController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("c")
+        if (Input.GetButton("Fire1")
             && !_chainBroken)
         {
             _lightAnimator.enabled = true;
