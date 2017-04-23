@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShadowBall : Movable
 {
-    public float Size = 1.5f;
-    private const float DudeSize = 1.5f;
+    public float Size = 0.5f;
+
     void Start()
     {
         Init();
@@ -50,11 +50,14 @@ public class ShadowBall : Movable
 
         if (Enabled)
         {
-           
-            gameObject.GetComponent<ParticleSystem>().Stop();
-            Parent.transform.position = transform.position + Vector3.up * DudeSize;
-            Parent.GetComponent<Movable>().Activate(this);
-            Parent.GetComponent<Shadow>().Apear();
+            if (coll.transform.position.y < transform.position.y)
+            {
+                gameObject.GetComponent<ParticleSystem>().Stop();
+                Parent.transform.position = transform.position + Vector3.up * DudeSize;
+                Parent.GetComponent<Movable>().Activate(this);
+                Parent.GetComponent<Shadow>().Apear();
+            }
+
         }
 
 
