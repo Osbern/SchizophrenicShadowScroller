@@ -17,10 +17,10 @@ public class LightController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
-        {
-            _switch = !_switch;
-            Light.SetActive(_switch);
-        }
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    _switch = !_switch;
+        //    Light.SetActive(_switch);
+        //}
     }
 }
