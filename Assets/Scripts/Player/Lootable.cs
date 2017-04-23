@@ -33,6 +33,11 @@ public class Lootable : MonoBehaviour
                 GetComponent<Collider2D>().enabled = false;
                 transform.parent = Destination.transform;
                 transform.localPosition = Vector3.zero - Vector3.up * 0.6f;
+                Vector3 scale = transform.localScale;
+                scale.x = (Destination.transform.lossyScale.x < 0)
+                                            ? -scale.x
+                                            : scale.x;
+                transform.localScale = scale;
             }
             else
             {
