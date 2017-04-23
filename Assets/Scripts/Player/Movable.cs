@@ -47,6 +47,14 @@ public class Movable : MonoBehaviour
             transform.localScale = Vector3.one;
             gameObject.GetComponent<ParticleSystem>().Play();
         }
+        if (caller.GetType() == typeof(ShadowBall))
+        {
+            caller.gameObject.GetComponent<ParticleSystem>().Stop();
+        }
+        if (this.GetType() == typeof(Shadow))
+        {
+            GetComponent<Shadow>().Apear(true);
+        }
 
         Camera.main.GetComponent<FollowCam>().Target = this.gameObject;
 
