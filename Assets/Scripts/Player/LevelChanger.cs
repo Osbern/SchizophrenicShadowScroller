@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI : MonoBehaviour
+public class LevelChanger : MonoBehaviour
 {
 
+    public string LevelName = "";
     // Use this for initialization
     void Start()
     {
@@ -18,8 +19,8 @@ public class UI : MonoBehaviour
 
     }
 
-    public void Play()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadSceneAsync("Level_01");
+        SceneManager.LoadSceneAsync(LevelName);
     }
 }
