@@ -179,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Shadow.SetActive(true);
         IsUnActiveShadowBall = true;
-        
+
         var startSize = ShadowBall.GetComponent<ParticleSystem>().startSize;
         var newStartSize = startSize - DISAPEARSPEED;
         ShadowBall.GetComponent<ParticleSystem>().startSize = Mathf.Clamp(newStartSize, 0, MAXSHADOWSIZE);
