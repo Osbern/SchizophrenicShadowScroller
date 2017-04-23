@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightController : MonoBehaviour
+public class LightController : Trigger
 {
     public GameObject Light;
     public Animator LightAnimator;
 
-    private bool _switch;
+    public bool _switch = true;
+
+    void Start()
+    {
+        Light.SetActive(_switch);
+    }
 
     private void Awake()
     {
@@ -17,10 +22,11 @@ public class LightController : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetButtonDown("Jump"))
-        //{
-        //    _switch = !_switch;
-        //    Light.SetActive(_switch);
-        //}
+        if (_playerIn != null && Input.GetButton("Fire1"))
+        {
+            _playerIn.GetComponent<Animator>().Play("Action");
+            _switch = !_switch;
+            Light.SetActive(_switch);
+        }
     }
 }

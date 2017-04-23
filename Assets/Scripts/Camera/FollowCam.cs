@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class FollowCam : MonoBehaviour
 {
-
     private Vector3 _offset;
     public GameObject Target;
     public float Smooth = 0.5f;
+    private bool _canFly;
 
     // Use this for initialization
     void Start()
@@ -19,7 +19,15 @@ public class FollowCam : MonoBehaviour
     void Update()
     {
         Vector3 newPos = Target.transform.position + _offset;
-        newPos.y = 0f;
+
+        if (!_canFly)
+            newPos.y = 0f;
+
         transform.position = Vector3.Lerp(transform.position, newPos, Smooth);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        _canFly = (collision.GetComponent<Collider>().tag == "YCamTrigger");
     }
 }

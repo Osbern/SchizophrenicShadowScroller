@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableChainController : MonoBehaviour
+public class BreakableChainController : Trigger
 {
     public GameObject Light;
     public GameObject RemainChain;
@@ -17,9 +17,9 @@ public class BreakableChainController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1")
-            && !_chainBroken)
+        if (_playerIn != null && Input.GetButton("Fire1") && !_chainBroken)
         {
+            _playerIn.GetComponent<Animator>().Play("Action");
             _lightAnimator.enabled = true;
             _lightAnimator.SetTrigger("IsBreaking");
             _chainBroken = true;

@@ -38,6 +38,7 @@ public class Player : Movable
                 Child.transform.localPosition = new Vector3(-0.24f, -0.17f, 0);
                 GoToChild = false;
                 _distanceBetweenBoth = 0;
+                transform.localScale = Vector3.one;
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<Rigidbody2D>().isKinematic = false;
                 GetComponentInChildren<ParticleSystem>().Stop();
@@ -63,6 +64,10 @@ public class Player : Movable
         {
             if (Enabled)
             {
+                Camera.main.GetComponent<FollowCam>().Target = this.gameObject;
+                Child.GetComponent<Movable>().Enabled = false;
+                Child.Child.GetComponent<Movable>().Enabled = false;
+
                 _inputTimer += Time.deltaTime;
 
                 if (Input.GetButton("Jump")

@@ -20,7 +20,12 @@ public class ShadowBall : Movable
     {
         if (Enabled)
         {
+            Camera.main.GetComponent<FollowCam>().Target = this.gameObject;
             Move();
+        }
+        else
+        {
+            gameObject.GetComponent<ParticleSystem>().Stop();
         }
     }
 
@@ -51,10 +56,8 @@ public class ShadowBall : Movable
         {
             if (coll.transform.position.y < transform.position.y)
             {
-                gameObject.GetComponent<ParticleSystem>().Stop();
                 Parent.transform.position = transform.position + Vector3.up * DudeSize;
                 Parent.GetComponent<Movable>().Activate(this);
-                Parent.GetComponent<Shadow>().Apear();
             }
         }
 
@@ -67,16 +70,14 @@ public class ShadowBall : Movable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+
         if (gameObject.GetComponent<ParticleSystem>().isPlaying
             && collision.tag == "LightTrigger")
         {
-            gameObject.GetComponent<ParticleSystem>().Stop();
-
             //Shadow
             Parent.transform.position = transform.position + Vector3.up * DudeSize;
-
-            //Player
-            Parent.Parent.GetComponent<Movable>().Activate(Parent, true);
+            Parent.GetComponent<Movable>().Activate(this);
+            Enabled = false;
         }
     }
 }

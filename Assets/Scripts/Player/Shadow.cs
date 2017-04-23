@@ -25,6 +25,9 @@ public class Shadow : Movable
     {
         if (Enabled)
         {
+            Camera.main.GetComponent<FollowCam>().Target = this.gameObject;
+            Child.GetComponent<Movable>().Enabled = false;
+
             if (_rigidbody.velocity.y < -1)
             {
                 Disapear();
@@ -148,16 +151,23 @@ public class Shadow : Movable
 
         if (transform.localScale.x <= 0)
         {
+            SetUnderLight(false);
             _isDisapearing = false;
             SetUnderLight(false);
             CancelInvoke("DisapearMe");
         }
     }
 
-    public void Apear()
+    public void Apear(bool ApearParent = false)
     {
+        if (ApearParent)
+        {
+            Parent.transform.position = transform.position;
+            Parent.GetComponent<Movable>().Activate(this);
+        }
         if (!_isDisapearing && !_apear)
         {
+            SetUnderLight(true);
             _apear = true;
             InvokeRepeating("ApearMe", 0, DISAPEARRATE);
         }
@@ -174,7 +184,6 @@ public class Shadow : Movable
         {
             Enabled = true;
             _apear = false;
-
             CancelInvoke("ApearMe");
         }
     }
