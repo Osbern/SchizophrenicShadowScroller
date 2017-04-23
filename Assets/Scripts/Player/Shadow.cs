@@ -27,6 +27,7 @@ public class Shadow : Movable
             else
             {
                 _inputTimer += Time.deltaTime;
+                _collideTimer += Time.deltaTime;
 
                 if (Input.GetButton("Jump")
                                && _inputTimer >= INPUT_DELAY)
@@ -79,10 +80,27 @@ public class Shadow : Movable
 
         if (Enabled)
         {
-            if (_inputTimer >= INPUT_DELAY)
+
+            if (_collideTimer >= INPUT_DELAY
+                && coll.transform.position.y < transform.position.y)
             {
                 Disapear();
 
+            }
+
+        }
+
+    }
+
+    void OnCollisionStay2D(Collision2D coll)
+    {
+
+        if (Enabled)
+        {
+            Debug.Log((LayerMask.LayerToName(coll.gameObject.layer)));
+            if ((LayerMask.LayerToName(coll.gameObject.layer) == "Ground"))
+            {
+                _collideTimer = 0;
             }
 
         }

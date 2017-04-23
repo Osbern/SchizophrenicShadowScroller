@@ -64,13 +64,33 @@ public class Player : Movable
         Vector2 position = new Vector2(transform.position.x, transform.position.y);
         _rigidbody.MovePosition(position + new Vector2(movement.x, 0));
 
-        var blocked = (_rigidbody.position.x == position.x);
-
-        _animator.SetBool("Blocked", blocked);
-        Child.GetComponent<Animator>().SetBool("Blocked", blocked);
+        //blocked
+        //_animator.SetBool("Blocked", _blocked);
+        //Child.GetComponent<Animator>().SetBool("Blocked", _blocked);
 
         Child.transform.position = transform.position + new Vector3(-0.1f, -0.02f, 0);
 
         return movement;
+    }
+
+    private bool _blocked = false;
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if ((LayerMask.LayerToName(coll.gameObject.layer) == "Collidable")
+            && coll.transform.position.y < transform.position.y)
+        {
+            _blocked = true;
+        }
+
+
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        if ((LayerMask.LayerToName(coll.gameObject.layer) == "Collidable"))
+        {
+            _blocked = false;
+        }
+
     }
 }

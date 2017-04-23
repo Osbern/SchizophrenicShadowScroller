@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour
 
         float newX = transform.position.x + movement.x;
 
-        if (newX > -19f
-            && newX < 98f)
+        //if (newX > -19f
+        //    && newX < 98f)
             transform.position += movement;
     }
 }

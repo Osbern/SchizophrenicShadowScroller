@@ -12,8 +12,8 @@ public class Movable : MonoBehaviour
     protected Animator _animator, _childAnimator;
     public bool Enabled = false;
     protected bool GoToChild = false;
-
-    protected float _inputTimer;
+    protected const float DudeSize = 1.5f;
+    protected float _inputTimer, _collideTimer;
 
     protected const float INPUT_DELAY = 0.5f;
 
@@ -37,7 +37,7 @@ public class Movable : MonoBehaviour
     {
         if (this.GetType() == typeof(ShadowBall))
         {
-            transform.position = caller.transform.position;
+            transform.position = caller.transform.position - Vector3.up * DudeSize * 2 / 3;
             transform.localScale = Vector3.one;
             gameObject.GetComponent<ParticleSystem>().Play();
         }
