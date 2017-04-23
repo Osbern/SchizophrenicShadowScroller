@@ -15,7 +15,8 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetButton("Fire1") || Input.GetButton("Submit"))
+            Play();
     }
 
     public void Play()
