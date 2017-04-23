@@ -47,6 +47,9 @@ public class Movable : MonoBehaviour
             transform.localScale = Vector3.one;
             gameObject.GetComponent<ParticleSystem>().Play();
         }
+
+        Camera.main.GetComponent<FollowCam>().Target = this.gameObject;
+
         _inputTimer = 0;
         caller.Enabled = false;
         GoToChild = goToChild;
