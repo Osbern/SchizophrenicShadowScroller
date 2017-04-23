@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Shadow : Movable
@@ -93,17 +94,13 @@ public class Shadow : Movable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "LightTrigger")
-        {
             SetUnderLight(true);
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "LightTrigger")
-        {
             SetUnderLight(false);
-        }
     }
 
     public void SetUnderLight(bool isUnderLight)
