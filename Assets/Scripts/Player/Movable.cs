@@ -5,8 +5,8 @@ using UnityEngine;
 public class Movable : MonoBehaviour
 {
     public AudioClip FootStepClip;
-    public GameObject Child;
-    public GameObject Parent;
+    public Movable Child;
+    public Movable Parent;
 
     public float Speed;
     protected Rigidbody2D _rigidbody;

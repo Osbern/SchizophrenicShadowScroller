@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shadow : Movable
 {
-
     private const float DISAPEARSPEED = 0.02f;
     private const float DISAPEARRATE = 0.001f;
 
@@ -13,7 +12,6 @@ public class Shadow : Movable
     {
         Init();
         Child.GetComponent<ParticleSystem>().startSize = 0;
-        SetUnderLight(true);
     }
 
     public override void FootStep()
@@ -36,7 +34,7 @@ public class Shadow : Movable
                 _collideTimer += Time.deltaTime;
 
                 if (Input.GetButton("Jump")
-                               && _inputTimer >= INPUT_DELAY)
+                    && _inputTimer >= INPUT_DELAY)
                 {
                     Parent.GetComponent<Movable>().Activate(this, true);
 
@@ -45,7 +43,6 @@ public class Shadow : Movable
 
                 Move();
             }
-
         }
     }
 
@@ -83,19 +80,30 @@ public class Shadow : Movable
 
     void OnCollisionExit2D(Collision2D coll)
     {
-
         if (Enabled)
         {
-
             if (_collideTimer >= INPUT_DELAY
                 && coll.transform.position.y < transform.position.y)
             {
                 Disapear();
-
             }
-
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            SetUnderLight(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            SetUnderLight(false);
+        }
     }
 
     public void SetUnderLight(bool isUnderLight)
@@ -110,22 +118,18 @@ public class Shadow : Movable
             {
                 particle.Stop();
             }
-
         }
     }
 
     void OnCollisionStay2D(Collision2D coll)
     {
-
         if (Enabled)
         {
             if ((LayerMask.LayerToName(coll.gameObject.layer) == "Ground"))
             {
                 _collideTimer = 0;
             }
-
         }
-
     }
     private void Disapear()
     {
@@ -135,7 +139,6 @@ public class Shadow : Movable
             Child.GetComponent<Movable>().Activate(this);
             InvokeRepeating("DisapearMe", 0, DISAPEARRATE);
         }
-
     }
 
     private bool _isDisapearing, _apear = false;

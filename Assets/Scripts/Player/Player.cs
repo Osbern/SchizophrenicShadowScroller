@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Movable
 {
+    private bool _isInLight;
 
     // Use this for initialization
     void Start()
@@ -65,7 +66,8 @@ public class Player : Movable
                 _inputTimer += Time.deltaTime;
 
                 if (Input.GetButton("Jump")
-                               && _inputTimer >= INPUT_DELAY)
+                    && _isInLight
+                    && _inputTimer >= INPUT_DELAY)
                 {
                     Child.GetComponent<Movable>().Activate(this);
 
@@ -112,8 +114,6 @@ public class Player : Movable
         {
             _blocked = true;
         }
-
-
     }
 
     void OnCollisionExit2D(Collision2D coll)
@@ -122,6 +122,21 @@ public class Player : Movable
         {
             _blocked = false;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            _isInLight = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            _isInLight = false;
+        }
     }
 }
