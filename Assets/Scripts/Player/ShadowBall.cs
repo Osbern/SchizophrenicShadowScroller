@@ -2,27 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShadowBall : MonoBehaviour
+public class ShadowBall : Movable
 {
-    public PlayerMovement PlayerMovement;
-    public GameObject Shadow;
-
-    private Vector3 _offset;
-    // Use this for initialization
+    public float Size = 1.5f;
+    private const float DudeSize = 1.5f;
     void Start()
     {
-        _offset = transform.position - Shadow.transform.position;
+        Init();
+
+        GetComponent<ParticleSystem>().startSize = Size;
+        gameObject.GetComponent<ParticleSystem>().Stop();
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        if (Enabled)
+        {
 
+            Move();
+        }
     }
 
-    public void Active(bool active)
+    protected override Vector2 Move()
     {
+        var movement = base.Move();
 
+        //move
+        Vector2 position = new Vector2(transform.position.x, transform.position.y);
+        _rigidbody.MovePosition(position + movement);
+
+        return movement;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -31,11 +42,24 @@ public class ShadowBall : MonoBehaviour
 
         //if (shadowBallTouchGround)
         //{
-        PlayerMovement.UnactiveBall();
-        Shadow.SetActive(true);
-        Shadow.transform.position = transform.position + Vector3.up * 0.45f;
+        //GetComponentInParent<PlayerMovement>().UnactiveBall();
+        //Shadow.SetActive(true);
+        //Shadow.transform.position = transform.position + Vector3.up * 0.45f;
+        //if (shadowBallTouchGround)
+        //{
+
+        if (Enabled)
+        {
+           
+            gameObject.GetComponent<ParticleSystem>().Stop();
+            Parent.transform.position = transform.position + Vector3.up * DudeSize;
+            Parent.GetComponent<Movable>().Activate(this);
+            Parent.GetComponent<Shadow>().Apear();
+        }
+
 
         //}
 
+        //}
     }
 }
