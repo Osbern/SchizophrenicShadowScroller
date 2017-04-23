@@ -20,7 +20,6 @@ public class ShadowBall : Movable
     {
         if (Enabled)
         {
-
             Move();
         }
     }
@@ -57,12 +56,27 @@ public class ShadowBall : Movable
                 Parent.GetComponent<Movable>().Activate(this);
                 Parent.GetComponent<Shadow>().Apear();
             }
-
         }
 
 
+
         //}
 
         //}
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (gameObject.GetComponent<ParticleSystem>().isPlaying
+            && collision.tag == "LightTrigger")
+        {
+            gameObject.GetComponent<ParticleSystem>().Stop();
+
+            //Shadow
+            Parent.transform.position = transform.position + Vector3.up * DudeSize;
+
+            //Player
+            Parent.Parent.GetComponent<Movable>().Activate(Parent, true);
+        }
     }
 }

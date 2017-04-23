@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Movable
 {
+    private bool _isInLight;
 
     // Use this for initialization
     void Start()
@@ -12,17 +13,50 @@ public class Player : Movable
         Enabled = true;
     }
 
+    private float _distanceBetweenBoth = 0;
+    private float disapearRate = 0.1f;
+    private float disapearSpeed = 0.05f;
     // Update is called once per frame
     void Update()
     {
         if (GoToChild)
         {
-            transform.position = Vector3.Lerp(transform.position, Child.transform.position, 0.3f);
+            GetComponentInChildren<ParticleSystem>().Play();
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<Rigidbody2D>().isKinematic = true;
+            transform.position = Vector3.Lerp(transform.position, Child.transform.position, disapearSpeed);
 
-            if (Vector3.Distance(transform.position, Child.transform.position) < 0.1f)
+            var distance = Vector3.Distance(transform.position, Child.transform.position);
+
+            if (_distanceBetweenBoth == 0)
+            {
+                _distanceBetweenBoth = distance;
+            }
+
+            if (distance < 0.1f)
             {
                 Child.transform.localPosition = new Vector3(-0.24f, -0.17f, 0);
                 GoToChild = false;
+                _distanceBetweenBoth = 0;
+                GetComponent<Collider2D>().enabled = true;
+                GetComponent<Rigidbody2D>().isKinematic = false;
+                GetComponentInChildren<ParticleSystem>().Stop();
+            }
+            else
+            {
+                var firstPart = (distance < _distanceBetweenBoth / 2);
+
+                foreach (var membre in GetComponentsInChildren<SpriteRenderer>())
+                {
+                    var color = membre.color;
+                    var alpha = (distance / _distanceBetweenBoth) * 255;
+
+                    var newAlpha = Mathf.Clamp(color.a + (firstPart ? disapearRate : -disapearRate), 0, 1);
+                    membre.color = new Color(color.r, color.g, color.b, newAlpha);
+
+                    var newScale = Child.transform.localScale * newAlpha;
+                    transform.localScale = newScale;
+                }
             }
         }
         else
@@ -32,7 +66,8 @@ public class Player : Movable
                 _inputTimer += Time.deltaTime;
 
                 if (Input.GetButton("Jump")
-                               && _inputTimer >= INPUT_DELAY)
+                    && _isInLight
+                    && _inputTimer >= INPUT_DELAY)
                 {
                     Child.GetComponent<Movable>().Activate(this);
 
@@ -79,8 +114,6 @@ public class Player : Movable
         {
             _blocked = true;
         }
-
-
     }
 
     void OnCollisionExit2D(Collision2D coll)
@@ -89,6 +122,21 @@ public class Player : Movable
         {
             _blocked = false;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            _isInLight = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "LightTrigger")
+        {
+            _isInLight = false;
+        }
     }
 }
